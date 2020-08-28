@@ -6,7 +6,9 @@
 //  Copyright © 2020 JON DEMAAGD. All rights reserved.
 //
 
-struct Item {
+// Item is able to encode itself into a plist or json
+// All properties must have standard data types to be encodable
+struct Item: Codable {
     
     var title: String = ""
     var done: Bool = false
