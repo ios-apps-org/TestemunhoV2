@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E60B48F524F9B575000FF17C /* CategoryViewController+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B48F424F9B575000FF17C /* CategoryViewController+SearchBarDelegate.swift */; };
 		E6E9CBB924F862E000ECDC8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9CBB824F862E000ECDC8D /* AppDelegate.swift */; };
 		E6E9CBBB24F862E000ECDC8D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9CBBA24F862E000ECDC8D /* SceneDelegate.swift */; };
 		E6E9CBBD24F862E000ECDC8D /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9CBBC24F862E000ECDC8D /* CategoryViewController.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E60B48F424F9B575000FF17C /* CategoryViewController+SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryViewController+SearchBarDelegate.swift"; sourceTree = "<group>"; };
 		E6E9CBB524F862E000ECDC8D /* TestemunhoV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestemunhoV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E9CBB824F862E000ECDC8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6E9CBBA24F862E000ECDC8D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				E6E9CBF124F86BD800ECDC8D /* CategoryViewController+TableDataSource.swift */,
 				E6E9CBF324F86C0600ECDC8D /* CategoryViewController+TableDelegate.swift */,
 				E6E9CBF924F99FE100ECDC8D /* DataController+AutoSave.swift */,
+				E60B48F424F9B575000FF17C /* CategoryViewController+SearchBarDelegate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				E6E9CBF424F86C0600ECDC8D /* CategoryViewController+TableDelegate.swift in Sources */,
 				E6E9CBBD24F862E000ECDC8D /* CategoryViewController.swift in Sources */,
 				E6E9CBC324F862E000ECDC8D /* TestemunhoV2.xcdatamodeld in Sources */,
+				E60B48F524F9B575000FF17C /* CategoryViewController+SearchBarDelegate.swift in Sources */,
 				E6E9CBB924F862E000ECDC8D /* AppDelegate.swift in Sources */,
 				E6E9CBFA24F99FE100ECDC8D /* DataController+AutoSave.swift in Sources */,
 				E6E9CBF824F99F9300ECDC8D /* DataController.swift in Sources */,
