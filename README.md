@@ -12,3 +12,8 @@
 - Core Data: object-oriented database
 - Realm: faster/easier database solution
 
+## Resources
+
+- [Xcode Code Sense](https://stackoverflow.com/questions/6662395/xcode-intellisense-meaning-of-letters-in-colored-boxes-like-f-t-c-m-p-c-k-etc/6789534#6789534)
+- [App/Scene Delegate classes](https://stackoverflow.com/questions/56508764/app-delegate-methods-arent-being-called-in-ios-13)
+
