@@ -30,7 +30,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Category" id="vs3-1C-q3n">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="anS-O4-VDU"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="anS-O4-VDU">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addItem:" destination="Brf-QT-d2m" id="81Q-Vs-3tg"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uob-Wu-xs4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

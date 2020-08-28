@@ -14,6 +14,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
+        print("")
+        print("didFinishLaunchingWithOptions??")
+        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
+        print("")
+        
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 
@@ -22,18 +27,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-
+        print("")
+        print("sceneDidBecomeActive")
+        print("applicationDidBecomeActive")
+        print("")
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-
+        print("")
+        print("sceneWillResignActive")
+        print("when something happens to phone while app is open (foreground)")
+        print("i.e. user receives a call: place to keep user from losing data")
+        print("i.e. filling out form and get a call in process w/o finishing form")
+        print("applicationWillResignActive")
+        print("")
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-
+        print("")
+        print("sceneWillEnterForeground")
+        print("applicationWillEnterForeground")
+        print("")
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        print("")
+        print("sceneDidEnterBackground")
+        print("app disappears off screen, enters background")
+        print("i.e. press home or open different app")
+        print("applicationDidEnterBackground")
+        print("")
+        
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 }
