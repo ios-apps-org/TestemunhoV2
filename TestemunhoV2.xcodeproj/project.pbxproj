@@ -18,6 +18,7 @@
 		E6E9CBDE24F862E000ECDC8D /* TestemunhoV2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9CBDD24F862E000ECDC8D /* TestemunhoV2UITests.swift */; };
 		E6E9CBF224F86BD800ECDC8D /* CategoryViewController+TableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9CBF124F86BD800ECDC8D /* CategoryViewController+TableDataSource.swift */; };
 		E6E9CBF424F86C0600ECDC8D /* CategoryViewController+TableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9CBF324F86C0600ECDC8D /* CategoryViewController+TableDelegate.swift */; };
+		E6E9CBF624F89C6100ECDC8D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9CBF524F89C6100ECDC8D /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		E6E9CBDF24F862E000ECDC8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6E9CBF124F86BD800ECDC8D /* CategoryViewController+TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryViewController+TableDataSource.swift"; sourceTree = "<group>"; };
 		E6E9CBF324F86C0600ECDC8D /* CategoryViewController+TableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryViewController+TableDelegate.swift"; sourceTree = "<group>"; };
+		E6E9CBF524F89C6100ECDC8D /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				E6E9CBC124F862E000ECDC8D /* TestemunhoV2.xcdatamodeld */,
+				E6E9CBF524F89C6100ECDC8D /* Item.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				E6E9CBBD24F862E000ECDC8D /* CategoryViewController.swift in Sources */,
 				E6E9CBC324F862E000ECDC8D /* TestemunhoV2.xcdatamodeld in Sources */,
 				E6E9CBB924F862E000ECDC8D /* AppDelegate.swift in Sources */,
+				E6E9CBF624F89C6100ECDC8D /* Item.swift in Sources */,
 				E6E9CBF224F86BD800ECDC8D /* CategoryViewController+TableDataSource.swift in Sources */,
 				E6E9CBBB24F862E000ECDC8D /* SceneDelegate.swift in Sources */,
 			);
