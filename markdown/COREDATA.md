@@ -24,6 +24,7 @@
 
 ## Database File
 
+- FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 - Device: /var/mobile/Containers/Data/Application/7E7B355B-B97A-4B04-BCCB-A6D43B150DF2/Documents/
 - Simulator: /Users/jdemaagd/Library/Developer/CoreSimulator/Devices/732CEBC7-0134-4618-ABC6-6503F0D9DC73/data/Containers/Data/Application/0FB5F122-F1FF-43E8-BB5F-5C5757D8788A/
     - cd Library/Application Support/

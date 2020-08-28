@@ -17,6 +17,11 @@ extension CategoryViewController {
         // Note: only reflected in itemArray
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
+        //itemArray[indexPath.row].setValue("Save the World!", forKeyPath: "title")
+        
+        //dataController.viewContext.delete(itemArray[indexPath.row])
+        //itemArray.remove(at: indexPath.row)
+        
         saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
