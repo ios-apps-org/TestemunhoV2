@@ -14,10 +14,10 @@ extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        // Note: only reflected in itemArray
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        // Note: forces tableView to call its data source methods again
-        tableView.reloadData()
+        saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

@@ -12,30 +12,47 @@ class CategoryViewController: UITableViewController {
 
     // MARK: - variables
     
+    // Note: can use several smaller plists for faster loading time
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Todo.plist")
     var itemArray = [Item]()
-    
-    let defaults = UserDefaults.standard
-    
-    
+            
+
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var newItem = Item()
-        newItem.title = "Find Mike"
-        var newItem2 = Item()
-        newItem2.title = "Buy Eggos"
-        var newItem3 = Item()
-        newItem3.title = "Destroy Demogorgon"
-        
-        itemArray.append(newItem)
-        itemArray.append(newItem2)
-        itemArray.append(newItem3)
-        
-        if let items = defaults.array(forKey: "TodoList") as? [Item] {
-            itemArray = items
+        print(dataFilePath)
+
+        loadItems()
+    }
+    
+    
+    // MARK: - internal methods
+    
+    func loadItems() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error decoding item array, \(error)")
+            }
         }
+    }
+    
+    func saveItems() {
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding item array, \(error.localizedDescription)")
+        }
+        
+        tableView.reloadData()
     }
     
     
@@ -54,10 +71,8 @@ class CategoryViewController: UITableViewController {
             var item = Item()
             item.title = textField.text!
             self.itemArray.append(item)
-            // Note: need to load
-            self.defaults.set(self.itemArray, forKey: "TodoList")
             
-            self.tableView.reloadData()
+            self.saveItems()
         }
         
         alert.addTextField { (alertTextField) in
