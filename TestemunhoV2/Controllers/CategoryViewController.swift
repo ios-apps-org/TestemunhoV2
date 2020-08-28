@@ -13,6 +13,7 @@ class CategoryViewController: UITableViewController {
     // MARK: - variables
     
     // Note: can use several smaller plists for faster loading time
+    var dataController: DataController!
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Todo.plist")
     var itemArray = [Item]()
             
@@ -22,34 +23,31 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(dataFilePath)
+        print(dataFilePath!)
 
-        loadItems()
+        // loadItems()
     }
     
     
     // MARK: - internal methods
     
-    func loadItems() {
-        if let data = try? Data(contentsOf: dataFilePath!) {
-            let decoder = PropertyListDecoder()
-            
-            do {
-                itemArray = try decoder.decode([Item].self, from: data)
-            } catch {
-                print("Error decoding item array, \(error)")
-            }
-        }
-    }
+//    func loadItems() {
+//        if let data = try? Data(contentsOf: dataFilePath!) {
+//            let decoder = PropertyListDecoder()
+//
+//            do {
+//                itemArray = try decoder.decode([Item].self, from: data)
+//            } catch {
+//                print("Error decoding item array, \(error)")
+//            }
+//        }
+//    }
     
     func saveItems() {
-        let encoder = PropertyListEncoder()
-        
         do {
-            let data = try encoder.encode(itemArray)
-            try data.write(to: dataFilePath!)
+            try dataController.viewContext.save()
         } catch {
-            print("Error encoding item array, \(error.localizedDescription)")
+            print("Error saving context, \(error.localizedDescription)")
         }
         
         tableView.reloadData()
@@ -68,8 +66,9 @@ class CategoryViewController: UITableViewController {
             
             // Note: attempting to save custom object to user defaults
             // Indication to consider another persistence option?
-            var item = Item()
+            let item = Item(context: self.dataController.viewContext)
             item.title = textField.text!
+            item.done = false
             self.itemArray.append(item)
             
             self.saveItems()
