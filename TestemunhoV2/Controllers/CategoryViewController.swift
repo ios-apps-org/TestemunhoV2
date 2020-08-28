@@ -12,11 +12,7 @@ class CategoryViewController: UITableViewController {
 
     // MARK: - variables
     
-    var itemArray = [
-        "Find Mike",
-        "Buy Eggos",
-        "Destroy Demogorgon"
-    ]
+    var itemArray = [Item]()
     
     let defaults = UserDefaults.standard
     
@@ -26,7 +22,18 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let items = UserDefaults.standard.array(forKey: "TodoList") as? [String] {
+        var newItem = Item()
+        newItem.title = "Find Mike"
+        var newItem2 = Item()
+        newItem2.title = "Buy Eggos"
+        var newItem3 = Item()
+        newItem3.title = "Destroy Demogorgon"
+        
+        itemArray.append(newItem)
+        itemArray.append(newItem2)
+        itemArray.append(newItem3)
+        
+        if let items = defaults.array(forKey: "TodoList") as? [Item] {
             itemArray = items
         }
     }
@@ -42,7 +49,11 @@ class CategoryViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             print("Completion handler executes from previous closure~")
             
-            self.itemArray.append(textField.text!)
+            // Note: attempting to save custom object to user defaults
+            // Indication to consider another persistence option?
+            var item = Item()
+            item.title = textField.text!
+            self.itemArray.append(item)
             // Note: need to load
             self.defaults.set(self.itemArray, forKey: "TodoList")
             

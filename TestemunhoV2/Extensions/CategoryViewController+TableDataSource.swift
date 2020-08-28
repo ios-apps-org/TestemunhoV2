@@ -18,6 +18,10 @@ extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        // Note: cellForRowAt indexPath gets called initially when the table gets loaded
+        // at that time point none of the items are ready
+        // Fix: tableView.reloadData() at didSelectRowAt indexPath
+        
         // let cellReuse = UITableViewCell(style: .default, reuseIdentifier: "categoryCell")
         
         // Note: cells roll off and get re-used
@@ -25,7 +29,9 @@ extension CategoryViewController {
         // Fix: do not set property on cell, set it on data (Item)
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         
-        cell.textLabel?.text = itemArray[indexPath.row]
+        let item = itemArray[indexPath.row]
+        cell.textLabel?.text = item.title
+        cell.accessoryType = item.done ? .checkmark : .none
         
         return cell
     }
