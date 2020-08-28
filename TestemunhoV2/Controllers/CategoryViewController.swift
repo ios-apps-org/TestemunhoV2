@@ -6,6 +6,7 @@
 //  Copyright © 2020 JON DEMAAGD. All rights reserved.
 //
 
+import CoreData
 import UIKit
 
 class CategoryViewController: UITableViewController {
@@ -14,7 +15,7 @@ class CategoryViewController: UITableViewController {
     
     // Note: can use several smaller plists for faster loading time
     var dataController: DataController!
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Todo.plist")
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     var itemArray = [Item]()
             
 
@@ -23,25 +24,23 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(dataFilePath!)
+        print(dataFilePath)
 
-        // loadItems()
+        loadItems()
     }
     
     
     // MARK: - internal methods
     
-//    func loadItems() {
-//        if let data = try? Data(contentsOf: dataFilePath!) {
-//            let decoder = PropertyListDecoder()
-//
-//            do {
-//                itemArray = try decoder.decode([Item].self, from: data)
-//            } catch {
-//                print("Error decoding item array, \(error)")
-//            }
-//        }
-//    }
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+        do {
+            itemArray = try dataController.viewContext.fetch(request)
+        } catch {
+            print("Error fetching data from context, \(error.localizedDescription)")
+        }
+        
+        tableView.reloadData()
+    }
     
     func saveItems() {
         do {
