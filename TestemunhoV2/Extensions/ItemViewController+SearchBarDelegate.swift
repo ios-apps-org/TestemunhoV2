@@ -17,7 +17,7 @@ extension ItemViewController: UISearchBarDelegate {
         let request: NSFetchRequest<Item> = Item.fetchRequest()
         
         let predicate = NSPredicate(format: "%K CONTAINS[cd] %@", "title", searchBar.text!)
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: true)]
         
         loadItems(with: request, predicate: predicate)
     }
