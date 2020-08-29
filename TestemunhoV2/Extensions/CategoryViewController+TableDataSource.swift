@@ -17,9 +17,17 @@ extension CategoryViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.defaultReuseIdentifier, for: indexPath) as! CategoryCell
         
-        cell.textLabel?.text = categories[indexPath.row].name
+        let category = categories[indexPath.row]
+        
+        let count = category.items?.count
+        var itemString = count == 1 ? "1 item" : "\(count!) items"
+        if count == 0 {
+            itemString = "no items"
+        }
+        cell.itemCountLabel.text = itemString
+        cell.nameLabel?.text = category.name
         
         return cell
     }

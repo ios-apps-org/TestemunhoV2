@@ -15,12 +15,23 @@ class ItemViewController: UITableViewController {
     
     var dataController: DataController!
     var itemArray = [Item]()
+    
+    
+    // MARK: - computed properties
+    
+    let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateStyle = .short
+        df.timeStyle = .short
+        return df
+    }()
+    
     var selectedCategory: Category? {
         didSet {
             loadItems()
         }
     }
-    
+
 
     // MARK: - Lifecycle methods
     
@@ -71,6 +82,7 @@ class ItemViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             let item = Item(context: self.dataController.viewContext)
             item.title = textField.text!
+            
             item.done = false
             item.category = self.selectedCategory
             self.itemArray.append(item)

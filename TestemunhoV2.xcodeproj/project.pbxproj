@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E60AD3D024FA943900CA705D /* Item+CreatedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60AD3CF24FA943900CA705D /* Item+CreatedDate.swift */; };
+		E60AD3D224FA944E00CA705D /* Category+CreatedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60AD3D124FA944E00CA705D /* Category+CreatedDate.swift */; };
 		E60B48F524F9B575000FF17C /* ItemViewController+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B48F424F9B575000FF17C /* ItemViewController+SearchBarDelegate.swift */; };
 		E60B48F724F9BFC9000FF17C /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B48F624F9BFC9000FF17C /* CategoryViewController.swift */; };
+		E633ECA824F9EEA800B7552A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633ECA724F9EEA800B7552A /* ItemCell.swift */; };
+		E633ECAA24F9EEB900B7552A /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633ECA924F9EEB900B7552A /* CategoryCell.swift */; };
+		E633ECAC24FA87E100B7552A /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633ECAB24FA87E100B7552A /* Cell.swift */; };
 		E6D86E3124F9C585002DA15A /* CategoryViewController+TableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D86E3024F9C585002DA15A /* CategoryViewController+TableDataSource.swift */; };
 		E6D86E3324F9C5BD002DA15A /* CategoryViewController+TableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D86E3224F9C5BD002DA15A /* CategoryViewController+TableDelegate.swift */; };
 		E6E9CBB924F862E000ECDC8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9CBB824F862E000ECDC8D /* AppDelegate.swift */; };
@@ -44,8 +49,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E60AD3CD24FA935C00CA705D /* TestemunhoV2-08-29-2020-created-date.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TestemunhoV2-08-29-2020-created-date.xcdatamodel"; sourceTree = "<group>"; };
+		E60AD3CF24FA943900CA705D /* Item+CreatedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CreatedDate.swift"; sourceTree = "<group>"; };
+		E60AD3D124FA944E00CA705D /* Category+CreatedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CreatedDate.swift"; sourceTree = "<group>"; };
 		E60B48F424F9B575000FF17C /* ItemViewController+SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemViewController+SearchBarDelegate.swift"; sourceTree = "<group>"; };
 		E60B48F624F9BFC9000FF17C /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		E633ECA724F9EEA800B7552A /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		E633ECA924F9EEB900B7552A /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		E633ECAB24FA87E100B7552A /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		E6D86E3024F9C585002DA15A /* CategoryViewController+TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryViewController+TableDataSource.swift"; sourceTree = "<group>"; };
 		E6D86E3224F9C5BD002DA15A /* CategoryViewController+TableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryViewController+TableDelegate.swift"; sourceTree = "<group>"; };
 		E6E9CBB524F862E000ECDC8D /* TestemunhoV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestemunhoV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +105,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E60AD3CE24FA93F300CA705D /* ManagedObjects */ = {
+			isa = PBXGroup;
+			children = (
+				E60AD3D124FA944E00CA705D /* Category+CreatedDate.swift */,
+				E60AD3CF24FA943900CA705D /* Item+CreatedDate.swift */,
+			);
+			path = ManagedObjects;
+			sourceTree = "<group>";
+		};
 		E6E9CBAC24F862E000ECDC8D = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +180,9 @@
 		E6E9CBEC24F86B1400ECDC8D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E633ECA924F9EEB900B7552A /* CategoryCell.swift */,
+				E633ECA724F9EEA800B7552A /* ItemCell.swift */,
+				E633ECAB24FA87E100B7552A /* Cell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +199,7 @@
 		E6E9CBEE24F86B3C00ECDC8D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E60AD3CE24FA93F300CA705D /* ManagedObjects */,
 				E6D86E3024F9C585002DA15A /* CategoryViewController+TableDataSource.swift */,
 				E6D86E3224F9C5BD002DA15A /* CategoryViewController+TableDelegate.swift */,
 				E6E9CBF924F99FE100ECDC8D /* DataController+AutoSave.swift */,
@@ -334,8 +358,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E633ECA824F9EEA800B7552A /* ItemCell.swift in Sources */,
 				E6D86E3324F9C5BD002DA15A /* CategoryViewController+TableDelegate.swift in Sources */,
+				E633ECAC24FA87E100B7552A /* Cell.swift in Sources */,
 				E60B48F724F9BFC9000FF17C /* CategoryViewController.swift in Sources */,
+				E60AD3D224FA944E00CA705D /* Category+CreatedDate.swift in Sources */,
+				E633ECAA24F9EEB900B7552A /* CategoryCell.swift in Sources */,
+				E60AD3D024FA943900CA705D /* Item+CreatedDate.swift in Sources */,
 				E6D86E3124F9C585002DA15A /* CategoryViewController+TableDataSource.swift in Sources */,
 				E6E9CBF424F86C0600ECDC8D /* ItemViewController+TableDelegate.swift in Sources */,
 				E6E9CBBD24F862E000ECDC8D /* ItemViewController.swift in Sources */,
@@ -679,9 +708,10 @@
 		E6E9CBC124F862E000ECDC8D /* TestemunhoV2.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E60AD3CD24FA935C00CA705D /* TestemunhoV2-08-29-2020-created-date.xcdatamodel */,
 				E6E9CBC224F862E000ECDC8D /* TestemunhoV2.xcdatamodel */,
 			);
-			currentVersion = E6E9CBC224F862E000ECDC8D /* TestemunhoV2.xcdatamodel */;
+			currentVersion = E60AD3CD24FA935C00CA705D /* TestemunhoV2-08-29-2020-created-date.xcdatamodel */;
 			path = TestemunhoV2.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
