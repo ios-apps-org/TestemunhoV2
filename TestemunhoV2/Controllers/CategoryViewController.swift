@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  CategoryViewController.swift
 //  TestemunhoV2
 //
-//  Created by Jon DeMaagd on 8/27/20.
+//  Created by Jon DeMaagd on 8/28/20.
 //  Copyright © 2020 JON DEMAAGD. All rights reserved.
 //
 
@@ -13,40 +13,36 @@ class CategoryViewController: UITableViewController {
 
     // MARK: - variables
     
-    // Note: can use several smaller plists for faster loading time
+    var categories = [Category]()
     var dataController: DataController!
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    var itemArray = [Item]()
-            
-
+    
+    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(dataFilePath)
 
-        loadItems()
+        loadCategories()
     }
     
     
     // MARK: - internal methods
     
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
         do {
-            itemArray = try dataController.viewContext.fetch(request)
+            categories = try dataController.viewContext.fetch(request)
         } catch {
-            print("Error fetching data from context, \(error.localizedDescription)")
+            print("Error loading categories, \(error.localizedDescription)")
         }
         
         tableView.reloadData()
     }
     
-    func saveItems() {
+    func saveCategories() {
         do {
             try dataController.viewContext.save()
         } catch {
-            print("Error saving context, \(error.localizedDescription)")
+            print("Error saving category, \(error.localizedDescription)")
         }
         
         tableView.reloadData()
@@ -55,33 +51,25 @@ class CategoryViewController: UITableViewController {
     
     // MARK: - IBActions
     
-    @IBAction func addItem(_ sender: UIBarButtonItem) {
+    @IBAction func addCategory(_ sender: UIBarButtonItem) {
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Add New Todo Item", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            print("Completion handler executes from previous closure~")
+        let action = UIAlertAction(title: "Add", style: .default) { (action) in
             
-            // Note: attempting to save custom object to user defaults
-            // Indication to consider another persistence option?
-            let item = Item(context: self.dataController.viewContext)
-            item.title = textField.text!
-            item.done = false
-            self.itemArray.append(item)
+            let category = Category(context: self.dataController.viewContext)
+            category.name = textField.text!
+            self.categories.append(category)
             
-            self.saveItems()
-        }
-        
-        alert.addTextField { (alertTextField) in
-            // Note: alertTextField is created as local variable inside closure
-            alertTextField.placeholder = "Create new item"
-            textField = alertTextField
-            // Note: closure only gets executed once text field has been added to alert!
-            print("Closure triggered but not executed~~")
+            self.saveCategories()
         }
         
         alert.addAction(action)
+        alert.addTextField { (field) in
+            field.placeholder = "Create new category"
+            textField = field
+        }
         
         present(alert, animated: true, completion: nil)
     }
