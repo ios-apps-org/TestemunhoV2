@@ -7,9 +7,50 @@
     </dependencies>
     <scenes>
         <!--Category View Controller-->
+        <scene sceneID="8Zr-Xn-XbK">
+            <objects>
+                <tableViewController id="fvk-lZ-P84" userLabel="Category View Controller" customClass="CategoryViewController" customModule="TestemunhoV2" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Yyh-KA-fFP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="eNk-lJ-uzg">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eNk-lJ-uzg" id="JPK-u4-OkY">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fvk-lZ-P84" id="aYC-Gd-Nvt"/>
+                            <outlet property="delegate" destination="fvk-lZ-P84" id="uMM-gg-Ije"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Category" id="PbR-9i-n0Z">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="XRb-4o-veJ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addCategory:" destination="fvk-lZ-P84" id="7vl-7g-F28"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="Brf-QT-d2m" kind="show" identifier="gotoItems" id="lXR-jZ-4xQ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4d4-B6-D1G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-410" y="11"/>
+        </scene>
+        <!--Item View Controller-->
         <scene sceneID="UQl-9Y-KwD">
             <objects>
-                <tableViewController id="Brf-QT-d2m" userLabel="Category View Controller" customClass="CategoryViewController" customModule="TestemunhoV2" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Brf-QT-d2m" userLabel="Item View Controller" customClass="ItemViewController" customModule="TestemunhoV2" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="CYb-vg-gKu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +64,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="O7R-R3-eLY">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" id="O7R-R3-eLY" userLabel="itemCell">
                                 <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O7R-R3-eLY" id="uU3-In-bSZ">
@@ -37,7 +78,7 @@
                             <outlet property="delegate" destination="Brf-QT-d2m" id="CEx-kP-sVP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Category" id="vs3-1C-q3n">
+                    <navigationItem key="navigationItem" title="Item" id="vs3-1C-q3n">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="anS-O4-VDU">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -48,7 +89,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uob-Wu-xs4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-370" y="11"/>
+            <point key="canvasLocation" x="454" y="11"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SRa-Ow-Lhv">
@@ -63,7 +104,7 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="Brf-QT-d2m" kind="relationship" relationship="rootViewController" id="1Dk-HV-Del"/>
+                        <segue destination="fvk-lZ-P84" kind="relationship" relationship="rootViewController" id="u4Y-Tl-cjr"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hnM-8F-4dN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
