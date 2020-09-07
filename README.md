@@ -11,6 +11,7 @@
 - SQLite: persist large amounts of data that can be queried
 - Core Data: object-oriented database
 - Realm: faster/easier database solution
+- CloudKit
 
 ## Resources
 
