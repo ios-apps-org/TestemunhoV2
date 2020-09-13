@@ -13,66 +13,72 @@ class CategoryViewController: UITableViewController {
 
     // MARK: - variables
     
-    var categories = [Category]()
     var dataController: DataController!
+    var fetchedResultsController: NSFetchedResultsController<Category>!
+    var onContentUpdated: (() -> Void)? = nil
     
     
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         loadCategories()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         loadCategories()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        fetchedResultsController = nil
     }
     
     
     // MARK: - internal methods
     
     func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
-        do {
-            categories = try dataController.viewContext.fetch(request)
-        } catch {
-            print("Error loading categories, \(error.localizedDescription)")
-        }
+        let sortDescriptor = NSSortDescriptor(key: "createdDate", ascending: false)
+        request.sortDescriptors = [sortDescriptor]
         
-        tableView.reloadData()
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "category")
+        
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Fetching categories could not be performed: \(error.localizedDescription)")
+        }
     }
     
-    func saveCategories() {
-        do {
-            try dataController.viewContext.save()
-        } catch {
-            print("Error saving category, \(error.localizedDescription)")
-        }
+    func addCategory(name: String) {
+        let category = Category(context: self.dataController.viewContext)
+        category.name = name
         
-        tableView.reloadData()
+        try? dataController.viewContext.save()
     }
     
     
     // MARK: - IBActions
     
     @IBAction func addCategory(_ sender: UIBarButtonItem) {
-        var textField = UITextField()
-        
         let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Add", style: .default) { (action) in
+        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
             
-            let category = Category(context: self.dataController.viewContext)
-            category.name = textField.text!
-            self.categories.append(category)
-            
-            self.saveCategories()
+            if let name = alert.textFields?.first?.text {
+                self?.addCategory(name: name)
+            }
         }
         
-        alert.addAction(action)
+        alert.addAction(addAction)
         alert.addTextField { (field) in
             field.placeholder = "Create new category"
-            textField = field
         }
         
         present(alert, animated: true, completion: nil)
