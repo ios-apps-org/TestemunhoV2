@@ -45,12 +45,14 @@ class CategoryViewController: UITableViewController {
         let sortDescriptor = NSSortDescriptor(key: "createdDate", ascending: false)
         request.sortDescriptors = [sortDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "category")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "categories")
         
         fetchedResultsController.delegate = self
         
         do {
             try fetchedResultsController.performFetch()
+            
+            tableView.reloadData()
         } catch {
             fatalError("Fetching categories could not be performed: \(error.localizedDescription)")
         }
