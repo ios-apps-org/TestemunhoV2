@@ -14,7 +14,8 @@ class ItemViewController: UITableViewController {
     // MARK: - variables
     
     var dataController: DataController!
-    var itemArray = [Item]()
+    var fetchedResultsController: NSFetchedResultsController<Item>!
+    var onContentUpdated: (() -> Void)? = nil
     
     
     // MARK: - computed properties
@@ -37,12 +38,23 @@ class ItemViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadItems()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadItems()
     }
     
     
     // MARK: - internal methods
     
     func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
+      
+        let sortDescriptor = NSSortDescriptor(key: "createdDate", ascending: false)
+        request.sortDescriptors = [sortDescriptor]
         
         let categoryPredicate = NSPredicate(format: "%K MATCHES %@", "category.name", selectedCategory!.name!)
         
@@ -52,50 +64,45 @@ class ItemViewController: UITableViewController {
             request.predicate = categoryPredicate
         }
         
-        do {
-            itemArray = try dataController.viewContext.fetch(request)
-        } catch {
-            print("Error loading todo items, \(error.localizedDescription)")
-        }
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "\(selectedCategory!)-items")
         
-        tableView.reloadData()
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+            
+            tableView.reloadData()
+        } catch {
+            fatalError("Fetching items could not be performed: \(error.localizedDescription)")
+        }
     }
     
-    func saveItems() {
-        do {
-            try dataController.viewContext.save()
-        } catch {
-            print("Error saving todo item, \(error.localizedDescription)")
-        }
+    func saveItem(title: String) {
+        let item = Item(context: self.dataController.viewContext)
+        item.title = title
+        item.done = false
+        item.category = self.selectedCategory
         
-        tableView.reloadData()
+        try? dataController.viewContext.save()
     }
     
     
     // MARK: - IBActions
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
-        var textField = UITextField()
-        
         let alert = UIAlertController(title: "Add New Todo Item", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            let item = Item(context: self.dataController.viewContext)
-            item.title = textField.text!
-            
-            item.done = false
-            item.category = self.selectedCategory
-            self.itemArray.append(item)
-            
-            self.saveItems()
+        let addAction = UIAlertAction(title: "Add Item", style: .default) { [weak self] action in
+            if let title = alert.textFields?.first?.text {
+                self?.saveItem(title: title)
+            }
         }
         
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create new item"
-            textField = alertTextField
         }
         
-        alert.addAction(action)
+        alert.addAction(addAction)
         
         present(alert, animated: true, completion: nil)
     }
