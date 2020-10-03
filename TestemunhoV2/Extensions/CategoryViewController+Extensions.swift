@@ -8,11 +8,11 @@
 
 // MARK: - UITableViewDataSource
 
-import CoreData
+import ChameleonFramework
 import UIKit
 
 extension CategoryViewController {
-    
+
     // MARK: - DataSource Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -21,7 +21,7 @@ extension CategoryViewController {
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.defaultReuseIdentifier, for: indexPath) as! CategoryCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let category = categories?[indexPath.row] {
             let count = category.items.count
@@ -29,10 +29,19 @@ extension CategoryViewController {
             if count == 0 {
                 itemString = "no items"
             }
-            cell.itemCountLabel.text = itemString
+            cell.detailTextLabel?.text = itemString
+            
+            cell.textLabel?.text = category.name
+            
+            guard let color = UIColor(hexString: category.color) else { fatalError() }
+            
+            cell.backgroundColor = color
+            cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+            cell.detailTextLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+        } else {
+            cell.textLabel?.text = "No categories added yet."
+            cell.backgroundColor = UIColor(hexString: "1d9bf6")
         }
-        
-        cell.nameLabel?.text = categories?[indexPath.row].name ?? "No categories added yet."
         
         return cell
     }

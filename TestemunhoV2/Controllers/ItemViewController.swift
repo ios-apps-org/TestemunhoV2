@@ -6,11 +6,17 @@
 //  Copyright © 2020 JON DEMAAGD. All rights reserved.
 //
 
+import ChameleonFramework
 import RealmSwift
 import UIKit
 
-class ItemViewController: UITableViewController {
+class ItemViewController: SwipeTableViewController {
 
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
     // MARK: - Properties
     
     var items: Results<Item>?
@@ -34,10 +40,31 @@ class ItemViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Note: point when view has been loaded up
+        //       but view may not have been inserted into navigation controller
+        //       might not be in navigation stack yet
+        
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    // Note: gets called later than viewDidLoad
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Note: point just before view appears on screen
+        //       after views been loaded up
+        //       after navigation stack has been established
+        
+        guard let colorHex = selectedCategory?.color else { fatalError() }
+        
+        title = selectedCategory?.name
+        
+        updateNavBar(withHexCode: colorHex)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        updateNavBar(withHexCode: "1d9bf6")
     }
     
     
@@ -48,6 +75,33 @@ class ItemViewController: UITableViewController {
         
         // Note: call data source functions again
         tableView.reloadData()
+    }
+    
+    override func updateModel(at indexPath: IndexPath) {
+        // super.updateModel(at: indexPath)
+        
+        if let item = self.items?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(item)
+                }
+            } catch {
+                print("Error deleting item, \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func updateNavBar(withHexCode colorHexCode: String) {
+        guard let navBar = navigationController?.navigationBar else {
+            fatalError("Navigation controller does not exist.")
+        }
+        
+        guard let navBarColor = UIColor(hexString: colorHexCode) else { fatalError() }
+        
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
+        navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+        navBar.backgroundColor = navBarColor
+        searchBar.barTintColor = navBarColor
     }
     
 
@@ -81,6 +135,7 @@ class ItemViewController: UITableViewController {
         }
         
         alert.addAction(addAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         present(alert, animated: true, completion: nil)
     }

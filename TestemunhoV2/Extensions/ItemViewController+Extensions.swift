@@ -6,37 +6,44 @@
 //  Copyright © 2020 JON DEMAAGD. All rights reserved.
 //
 
-import CoreData
+import ChameleonFramework
 import UIKit
-
-// MARK: - UITableViewDelegate
 
 extension ItemViewController: UISearchBarDelegate {
   
-    // MARK: - DataSource methods
+    // MARK: - DataSource Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.defaultReuseIdentifier, for: indexPath) as! ItemCell
+
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let item = items?[indexPath.row] {
-            if let createdDate = item.createdDate {
-                cell.dateLabel?.text = self.dateFormatter.string(from: createdDate)
-            }
-            cell.titleLabel?.text = item.title
+
+            cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
+            
+            if let color = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(items!.count)) {
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+                
+                if let createdDate = item.createdDate {
+                    cell.detailTextLabel?.text = self.dateFormatter.string(from: createdDate)
+                    cell.detailTextLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+                }
+            }
         } else {
-            cell.titleLabel?.text = "No Items Added"
+            cell.textLabel?.text = "No Items Added"
         }
 
         return cell
     }
     
     
-    // MARK: - Delegate methods
+    // MARK: - Delegate Functions
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -44,7 +51,6 @@ extension ItemViewController: UISearchBarDelegate {
             do {
                 try realm.write {
                     item.done = !item.done
-                    // realm.delete(item)
                 }
             } catch {
                 print("Error saving done status, \(error.localizedDescription)")
@@ -57,7 +63,7 @@ extension ItemViewController: UISearchBarDelegate {
     }
     
     
-    // MARK: - UISearchBarDelegate
+    // MARK: - UISearchBarDelegate Functions
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         items = items?.filter("%K CONTAINS[cd] %@", "title", searchBar.text!)
