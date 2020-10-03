@@ -6,7 +6,7 @@
 //  Copyright © 2020 JON DEMAAGD. All rights reserved.
 //
 
-import CoreData
+import ChameleonFramework
 import UIKit
 
 extension ItemViewController: UISearchBarDelegate {
@@ -22,11 +22,19 @@ extension ItemViewController: UISearchBarDelegate {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let item = items?[indexPath.row] {
-            if let createdDate = item.createdDate {
-                cell.detailTextLabel?.text = self.dateFormatter.string(from: createdDate)
-            }
+
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
+            
+            if let color = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(items!.count)) {
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+                
+                if let createdDate = item.createdDate {
+                    cell.detailTextLabel?.text = self.dateFormatter.string(from: createdDate)
+                    cell.detailTextLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+                }
+            }
         } else {
             cell.textLabel?.text = "No Items Added"
         }

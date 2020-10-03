@@ -8,7 +8,7 @@
 
 // MARK: - UITableViewDataSource
 
-import CoreData
+import ChameleonFramework
 import UIKit
 
 extension CategoryViewController {
@@ -30,9 +30,18 @@ extension CategoryViewController {
                 itemString = "no items"
             }
             cell.detailTextLabel?.text = itemString
+            
+            cell.textLabel?.text = category.name
+            
+            guard let color = UIColor(hexString: category.color) else { fatalError() }
+            
+            cell.backgroundColor = color
+            cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+            cell.detailTextLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+        } else {
+            cell.textLabel?.text = "No categories added yet."
+            cell.backgroundColor = UIColor(hexString: "1d9bf6")
         }
-        
-        cell.textLabel?.text = categories?[indexPath.row].name ?? "No categories added yet."
         
         return cell
     }

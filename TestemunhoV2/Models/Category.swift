@@ -17,8 +17,9 @@ class Category: Object {
             allows realm to dynamically update changes in database
             but dynamic dispatch comes from Objective-C APIs
      */
-    @objc dynamic var name: String = ""
+    @objc dynamic var color: String = ""
     @objc dynamic var createdDate: Date?
+    @objc dynamic var name: String = ""
     
     // forward relationship
     let items = List<Item>()

@@ -15,11 +15,3 @@
 - [Source Code](https://github.com/realm/realm-cocoa)
 - [Realm Blog](https://realm.io/blog/page/2/)
 
-
-override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! SwipeTableViewCell
-    cell.delegate = self
-    return cell
-}
-
-
