@@ -39,13 +39,6 @@ class ItemViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadItems()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        loadItems()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
