@@ -6,33 +6,23 @@
 //  Copyright © 2020 JON DEMAAGD. All rights reserved.
 //
 
+import RealmSwift
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let dataController = DataController(modelName: "TestemunhoV2")
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        dataController.load()
+        print(Realm.Configuration.defaultConfiguration.fileURL)
         
-        let navigationController = window?.rootViewController as! UINavigationController
-        let categoryViewController = navigationController.topViewController as! CategoryViewController
-        categoryViewController.dataController = dataController
-    }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-        saveViewContext()
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        saveViewContext()
-    }
-    
-    func saveViewContext() {
-        try? dataController.viewContext.save()
+        do {
+            let realm = try Realm()
+        } catch {
+            print("SceneDelegate :: Error initializing realm, \(error.localizedDescription)")
+        }
     }
 }

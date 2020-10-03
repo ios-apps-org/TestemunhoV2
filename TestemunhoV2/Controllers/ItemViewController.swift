@@ -6,19 +6,15 @@
 //  Copyright © 2020 JON DEMAAGD. All rights reserved.
 //
 
-import CoreData
+import RealmSwift
 import UIKit
 
 class ItemViewController: UITableViewController {
 
-    // MARK: - variables
+    // MARK: - Properties
     
-    var dataController: DataController!
-    var fetchedResultsController: NSFetchedResultsController<Item>!
-    var onContentUpdated: (() -> Void)? = nil
-    
-    
-    // MARK: - computed properties
+    var items: Results<Item>?
+    let realm = try! Realm()
     
     let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -34,62 +30,25 @@ class ItemViewController: UITableViewController {
     }
 
 
-    // MARK: - Lifecycle methods
+    // MARK: - Lifecycle Functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        fetchedResultsController = nil
     }
     
     
-    // MARK: - internal methods
+    // MARK: - ItemViewController Functions
     
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
-      
-        let sortDescriptor = NSSortDescriptor(key: "createdDate", ascending: false)
-        request.sortDescriptors = [sortDescriptor]
-        
-        let categoryPredicate = NSPredicate(format: "%K MATCHES %@", "category.name", selectedCategory!.name!)
-        
-        if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
-        } else {
-            request.predicate = categoryPredicate
-        }
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "\(selectedCategory!)-items")
-        
-        refreshTable()
+    func loadItems() {
+        items = selectedCategory?.items.sorted(byKeyPath: "createdDate", ascending: false)
+        tableView.reloadData()
     }
     
-    func refreshTable() {
-        do {
-            try fetchedResultsController.performFetch()
-            
-            tableView.reloadData()
-        } catch {
-            fatalError("Fetching items could not be performed: \(error.localizedDescription)")
-        }
-    }
-    
-    func saveItem(title: String) {
-        let item = Item(context: self.dataController.viewContext)
-        item.title = title
-        item.done = false
-        item.category = self.selectedCategory
-        
-        try? dataController.viewContext.save()
-        
-        refreshTable()
-    }
-    
-    
+
     // MARK: - IBActions
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
@@ -97,7 +56,20 @@ class ItemViewController: UITableViewController {
         
         let addAction = UIAlertAction(title: "Add Item", style: .default) { [weak self] action in
             if let title = alert.textFields?.first?.text {
-                self?.saveItem(title: title)
+                
+                if let currentCategory = self?.selectedCategory {
+                    do {
+                        try self?.realm.write {
+                            let newItem = Item()
+                            newItem.title = title
+                            currentCategory.items.append(newItem)
+                        }
+                    } catch {
+                        print("Error saving item: \(error.localizedDescription)")
+                    }
+                }
+                
+                self?.tableView.reloadData()
             }
         }
         

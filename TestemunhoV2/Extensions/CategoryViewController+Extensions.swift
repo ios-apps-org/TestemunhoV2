@@ -11,36 +11,34 @@
 import CoreData
 import UIKit
 
-extension CategoryViewController: NSFetchedResultsControllerDelegate {
+extension CategoryViewController {
     
-    // MARK: - DataSource methods
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 1
-    }
+    // MARK: - DataSource Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        return categories?.count ?? 1
     }
-    
+  
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let category = fetchedResultsController.object(at: indexPath)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.defaultReuseIdentifier, for: indexPath) as! CategoryCell
         
-        let count = category.items?.count
-        var itemString = count == 1 ? "1 item" : "\(count!) items"
-        if count == 0 {
-            itemString = "no items"
+        if let category = categories?[indexPath.row] {
+            let count = category.items.count
+            var itemString = count == 1 ? "1 item" : "\(count) items"
+            if count == 0 {
+                itemString = "no items"
+            }
+            cell.itemCountLabel.text = itemString
         }
-        cell.itemCountLabel.text = itemString
-        cell.nameLabel?.text = category.name
+        
+        cell.nameLabel?.text = categories?[indexPath.row].name ?? "No categories added yet."
         
         return cell
     }
+
     
-    
-    // MARK: - Delegate methods
+    // MARK: - Delegate Functions
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -53,52 +51,7 @@ extension CategoryViewController: NSFetchedResultsControllerDelegate {
         let destVC = segue.destination as! ItemViewController
         
         if let indexPath = tableView.indexPathForSelectedRow {
-            destVC.dataController = dataController
-            destVC.selectedCategory = fetchedResultsController.object(at: indexPath)
+            destVC.selectedCategory = categories?[indexPath.row]
         }
-    }
-    
-    
-    // MARK: - NSFetchedResultsControllerDelegate methods
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        switch type {
-        case .insert:
-            tableView.insertRows(at: [newIndexPath!], with: .fade)
-        case .delete:
-            tableView.deleteRows(at: [indexPath!], with: .fade)
-        case.move:
-            tableView.moveRow(at: indexPath!, to: newIndexPath!)
-        case .update:
-            tableView.reloadRows(at: [indexPath!], with: .fade)
-        default:
-            tableView.reloadData()
-        }
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        
-        let indexSet = IndexSet(integer: sectionIndex)
-        
-        switch type {
-        case .insert:
-            tableView.insertSections(indexSet, with: .fade)
-        case .delete:
-            tableView.deleteSections(indexSet, with: .fade)
-        case .update:
-            tableView.reloadSections(indexSet, with: .fade)
-        default:
-            tableView.reloadData()
-        }
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-        onContentUpdated?()
-    }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
     }
 }

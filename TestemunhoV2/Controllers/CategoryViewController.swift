@@ -6,67 +6,52 @@
 //  Copyright © 2020 JON DEMAAGD. All rights reserved.
 //
 
-import CoreData
+import RealmSwift
 import UIKit
 
 class CategoryViewController: UITableViewController {
 
-    // MARK: - variables
+    // MARK: - Properties
     
-    var dataController: DataController!
-    var fetchedResultsController: NSFetchedResultsController<Category>!
+    var categories: Results<Category>?
     var onContentUpdated: (() -> Void)? = nil
+    let realm = try! Realm()
     
     
-    // MARK: - Lifecycle methods
+    // MARK: - Lifecycle Functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadCategories()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         loadCategories()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        fetchedResultsController = nil
     }
     
     
-    // MARK: - internal methods
-    
-    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
-        let sortDescriptor = NSSortDescriptor(key: "createdDate", ascending: false)
-        request.sortDescriptors = [sortDescriptor]
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "categories")
-        
-        fetchedResultsController.delegate = self
-        
-        refreshTable()
+    // MARK: - CategoryViewController Functions
+
+    func loadCategories() {
+        categories = realm.objects(Category.self)
+        tableView.reloadData()
     }
     
-    func refreshTable() {
+    func save(category: Category) {
         do {
-            try fetchedResultsController.performFetch()
-            
-            tableView.reloadData()
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
-            fatalError("Fetching categories could not be performed: \(error.localizedDescription)")
+            print("Error saving category: \(error.localizedDescription)")
         }
-    }
-    
-    func saveCategory(name: String) {
-        let category = Category(context: self.dataController.viewContext)
-        category.name = name
         
-        try? dataController.viewContext.save()
+        tableView.reloadData()
     }
     
     
@@ -78,7 +63,10 @@ class CategoryViewController: UITableViewController {
         let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
             
             if let name = alert.textFields?.first?.text {
-                self?.saveCategory(name: name)
+                let newCategory = Category()
+                newCategory.name = name
+    
+                self?.save(category: newCategory)
             }
         }
         
