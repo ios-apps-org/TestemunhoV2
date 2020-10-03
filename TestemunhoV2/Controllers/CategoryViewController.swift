@@ -14,7 +14,6 @@ class CategoryViewController: UITableViewController {
     // MARK: - Properties
     
     var categories: Results<Category>?
-    var onContentUpdated: (() -> Void)? = nil
     let realm = try! Realm()
     
     
@@ -23,15 +22,6 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadCategories()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     
@@ -51,6 +41,7 @@ class CategoryViewController: UITableViewController {
             print("Error saving category: \(error.localizedDescription)")
         }
         
+        // Note: calls data source functions again
         tableView.reloadData()
     }
     
@@ -65,7 +56,7 @@ class CategoryViewController: UITableViewController {
             if let name = alert.textFields?.first?.text {
                 let newCategory = Category()
                 newCategory.name = name
-    
+                newCategory.createdDate = Date()
                 self?.save(category: newCategory)
             }
         }

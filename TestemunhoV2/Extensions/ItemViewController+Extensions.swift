@@ -59,21 +59,22 @@ extension ItemViewController: UISearchBarDelegate {
     
     // MARK: - UISearchBarDelegate
     
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        let request: NSFetchRequest<Item> = Item.fetchRequest()
-//        
-//        let predicate = NSPredicate(format: "%K CONTAINS[cd] %@", "title", searchBar.text!)
-//        
-//        loadItems(with: request, predicate: predicate)
-//    }
-//    
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchBar.text?.count == 0 {
-//            loadItems()
-//            
-//            DispatchQueue.main.async {
-//                searchBar.resignFirstResponder()
-//            }
-//        }
-//    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        items = items?.filter("%K CONTAINS[cd] %@", "title", searchBar.text!)
+            .sorted(byKeyPath: "createdDate", ascending: true)
+        // false: most recent at top
+        // true: most recent at bottom
+        
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
 }

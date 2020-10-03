@@ -17,10 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+        print(Realm.Configuration.defaultConfiguration.fileURL ?? "realm file")
         
         do {
-            let realm = try Realm()
+            _ = try Realm()
         } catch {
             print("SceneDelegate :: Error initializing realm, \(error.localizedDescription)")
         }

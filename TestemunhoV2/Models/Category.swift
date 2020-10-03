@@ -18,7 +18,7 @@ class Category: Object {
             but dynamic dispatch comes from Objective-C APIs
      */
     @objc dynamic var name: String = ""
-    @objc dynamic var createdDate: Date = Date()
+    @objc dynamic var createdDate: Date?
     
     // forward relationship
     let items = List<Item>()
