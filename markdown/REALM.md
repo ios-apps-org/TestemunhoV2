@@ -5,6 +5,7 @@
 - pod init; open Podfile -a Xcode
     - edit Podfile to include packages
 - pod install
+- pod update
 - open workspace
 
 ## Resources
