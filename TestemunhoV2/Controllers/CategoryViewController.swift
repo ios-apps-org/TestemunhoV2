@@ -9,7 +9,7 @@
 import RealmSwift
 import UIKit
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
 
     // MARK: - Properties
     
@@ -26,7 +26,7 @@ class CategoryViewController: UITableViewController {
     
     
     // MARK: - CategoryViewController Functions
-
+    
     func loadCategories() {
         categories = realm.objects(Category.self)
         tableView.reloadData()
@@ -43,6 +43,20 @@ class CategoryViewController: UITableViewController {
         
         // Note: calls data source functions again
         tableView.reloadData()
+    }
+    
+    override func updateModel(at indexPath: IndexPath) {
+        // super.updateModel(at: indexPath)
+        
+        if let category = self.categories?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(category)
+                }
+            } catch {
+                print("Error deleting category, \(error.localizedDescription)")
+            }
+        }
     }
     
     
@@ -62,6 +76,8 @@ class CategoryViewController: UITableViewController {
         }
         
         alert.addAction(addAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
         alert.addTextField { (field) in
             field.placeholder = "Create new category"
         }

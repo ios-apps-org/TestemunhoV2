@@ -9,7 +9,7 @@
 import RealmSwift
 import UIKit
 
-class ItemViewController: UITableViewController {
+class ItemViewController: SwipeTableViewController {
 
     // MARK: - Properties
     
@@ -36,10 +36,6 @@ class ItemViewController: UITableViewController {
         super.viewDidLoad()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     
     // MARK: - ItemViewController Functions
     
@@ -48,6 +44,20 @@ class ItemViewController: UITableViewController {
         
         // Note: call data source functions again
         tableView.reloadData()
+    }
+    
+    override func updateModel(at indexPath: IndexPath) {
+        // super.updateModel(at: indexPath)
+        
+        if let item = self.items?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(item)
+                }
+            } catch {
+                print("Error deleting item, \(error.localizedDescription)")
+            }
+        }
     }
     
 
@@ -81,6 +91,7 @@ class ItemViewController: UITableViewController {
         }
         
         alert.addAction(addAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         present(alert, animated: true, completion: nil)
     }

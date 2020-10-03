@@ -7,6 +7,7 @@ target 'TestemunhoV2' do
 
   # Pods for TestemunhoV2
   pod 'RealmSwift'
+  pod 'SwipeCellKit'
 
   target 'TestemunhoV2Tests' do
     inherit! :search_paths
