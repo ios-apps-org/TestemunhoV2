@@ -49,6 +49,10 @@ class CategoryViewController: UITableViewController {
         
         fetchedResultsController.delegate = self
         
+        refreshTable()
+    }
+    
+    func refreshTable() {
         do {
             try fetchedResultsController.performFetch()
             
@@ -58,7 +62,7 @@ class CategoryViewController: UITableViewController {
         }
     }
     
-    func addCategory(name: String) {
+    func saveCategory(name: String) {
         let category = Category(context: self.dataController.viewContext)
         category.name = name
         
@@ -74,7 +78,7 @@ class CategoryViewController: UITableViewController {
         let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
             
             if let name = alert.textFields?.first?.text {
-                self?.addCategory(name: name)
+                self?.saveCategory(name: name)
             }
         }
         

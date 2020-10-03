@@ -10,7 +10,6 @@
 		E60AD3D024FA943900CA705D /* Item+CreatedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60AD3CF24FA943900CA705D /* Item+CreatedDate.swift */; };
 		E60AD3D224FA944E00CA705D /* Category+CreatedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60AD3D124FA944E00CA705D /* Category+CreatedDate.swift */; };
 		E60B48F724F9BFC9000FF17C /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B48F624F9BFC9000FF17C /* CategoryViewController.swift */; };
-		E6309A2A25065EF000CE1431 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6309A2925065EF000CE1431 /* CloudKit.framework */; };
 		E633ECA824F9EEA800B7552A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633ECA724F9EEA800B7552A /* ItemCell.swift */; };
 		E633ECAA24F9EEB900B7552A /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633ECA924F9EEB900B7552A /* CategoryCell.swift */; };
 		E633ECAC24FA87E100B7552A /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633ECAB24FA87E100B7552A /* Cell.swift */; };
@@ -82,7 +81,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6309A2A25065EF000CE1431 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +293,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "JON DEMAAGD";
 				TargetAttributes = {
 					E6E9CBB424F862E000ECDC8D = {
@@ -457,6 +455,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -517,6 +516,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

@@ -39,13 +39,12 @@ class ItemViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadItems()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        loadItems()
+        fetchedResultsController = nil
     }
     
     
@@ -66,8 +65,10 @@ class ItemViewController: UITableViewController {
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "\(selectedCategory!)-items")
         
-        fetchedResultsController.delegate = self
-        
+        refreshTable()
+    }
+    
+    func refreshTable() {
         do {
             try fetchedResultsController.performFetch()
             
@@ -84,6 +85,8 @@ class ItemViewController: UITableViewController {
         item.category = self.selectedCategory
         
         try? dataController.viewContext.save()
+        
+        refreshTable()
     }
     
     
