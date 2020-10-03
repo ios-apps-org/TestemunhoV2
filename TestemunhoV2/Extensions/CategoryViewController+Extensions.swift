@@ -41,10 +41,7 @@ extension CategoryViewController {
     // MARK: - Delegate Functions
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         performSegue(withIdentifier: "itemsSegue", sender: self)
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

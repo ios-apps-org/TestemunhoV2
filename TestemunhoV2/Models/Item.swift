@@ -19,7 +19,7 @@ class Item: Object {
      */
     @objc dynamic var title: String = ""
     @objc dynamic var done: Bool = false
-    @objc dynamic var createdDate: Date? = Date()
+    @objc dynamic var createdDate: Date?
     
     // Note: auto-updating container
     //       represents object(s) linked to its owning model object
