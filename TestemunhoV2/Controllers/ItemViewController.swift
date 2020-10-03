@@ -44,7 +44,9 @@ class ItemViewController: UITableViewController {
     // MARK: - ItemViewController Functions
     
     func loadItems() {
-        items = selectedCategory?.items.sorted(byKeyPath: "createdDate", ascending: false)
+        items = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        
+        // Note: call data source functions again
         tableView.reloadData()
     }
     
@@ -62,6 +64,7 @@ class ItemViewController: UITableViewController {
                         try self?.realm.write {
                             let newItem = Item()
                             newItem.title = title
+                            newItem.createdDate = Date()
                             currentCategory.items.append(newItem)
                         }
                     } catch {
