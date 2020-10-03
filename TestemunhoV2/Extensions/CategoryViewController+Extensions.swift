@@ -40,11 +40,11 @@ extension CategoryViewController: NSFetchedResultsControllerDelegate {
     }
     
     
-    // MARK: - Delete methods
+    // MARK: - Delegate methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        performSegue(withIdentifier: "gotoItems", sender: self)
+        performSegue(withIdentifier: "itemsSegue", sender: self)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
